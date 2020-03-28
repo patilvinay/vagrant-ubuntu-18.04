@@ -10,9 +10,33 @@ Vagrant.configure("2") do |config|
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
 
+  hostname = "ubuntu.box"
+    locale = "en_GB.UTF.8"
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/bionic64"
+  config.vm.box = "ubuntu/trusty64"
+  config.vm.synced_folder "~/.ssh/", "/keys/.ssh"
+    
+  config.vm.provider "virtualbox" do |v|
+    v.name = "vagrant_ubuntu18_vb"
+    v.memory = 2048
+    v.cpus = 2
+  end
+
+  #config.vm.provision "file", source: "~/.ssh/vinay-wsl-git", destination: "~/.ssh/git"
+  config.vm.provision "shell", 
+    path: "provision/script.sh"
+ 
+  config.vm.boot_timeout =500
+  #config.ssh.username = "vinay"
+  #config.ssh.username = "vinay"
+  #config.ssh.password = "welcome"
+
+  
+  config.vm.provision :shell, :inline => "hostnamectl set-hostname #{hostname} && locale-gen #{locale}"
+  config.vm.provision :shell, :inline => "apt-get update --fix-missing"
+  config.vm.provision :shell, :inline => "apt-get install -q -y g++ make git curl vim"
+
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -37,7 +61,7 @@ Vagrant.configure("2") do |config|
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
-  # config.vm.network "public_network"
+   #config.vm.network "public_network"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
