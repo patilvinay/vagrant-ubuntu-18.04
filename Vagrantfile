@@ -15,17 +15,18 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "ubuntu/trusty64"
+  config.vm.box_check_update = false
   config.vm.synced_folder "~/.ssh/", "/keys/.ssh"
     
   config.vm.provider "virtualbox" do |v|
-    v.name = "vagrant_ubuntu18_vb"
+   # v.name = "vagrant_ubuntu18_vb"
     v.memory = 2048
     v.cpus = 2
   end
 
   #config.vm.provision "file", source: "~/.ssh/vinay-wsl-git", destination: "~/.ssh/git"
   config.vm.provision "shell", 
-    path: "provision/script.sh"
+    path: "provision/script.sh",privileged: true
  
   config.vm.boot_timeout =500
   #config.ssh.username = "vinay"
@@ -61,7 +62,7 @@ Vagrant.configure("2") do |config|
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
-   #config.vm.network "public_network"
+  config.vm.network "public_network"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is

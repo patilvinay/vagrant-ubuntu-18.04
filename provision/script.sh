@@ -23,7 +23,7 @@
 #ssh-add /keys/.ssh/vinay-wsl-git
 
 INSTALLDIR=my-settings
-INSTALLPATH=/omhome
+INSTALLPATH=/home/$USER
   # Control will enter here if $DIRECTORY exists.vi
   #ymkdir -p $INSTALLPATH/$INSTALLDIR/oh-my-zsh #create one more home
   
