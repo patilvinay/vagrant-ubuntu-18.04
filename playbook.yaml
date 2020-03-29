@@ -1,19 +1,55 @@
-- hosts: 127.0.0.1
+- hosts: localhost
   connection: local
   tasks:
+      - name: debug specified user's home dir through ansible.env
+        debug: var=ansible_env.HOME
+        become: true
+        
       - name: Cloning my-settings from git
         git:
             repo: https://github.com/patilvinay/my-settings.git
-            dest: my-settings
-      - name: Cloning my-settings from oh my zsh
+            dest: "{{ansible_env.HOME}}/my-settings"
+            force: yes
+            
+            
+      - name: Install zsh
+        apt:
+          name: zsh
+          state: present
+        become: yes
+      - name: Cloning oh-my-zsh from  
         git:
             repo:  https://github.com/ohmyzsh/ohmyzsh.git
-            dest: my-settings/oh-my-zsh
-      - name: Cloning my-settings from powerlevel10k
+            dest: "{{ansible_env.HOME}}/my-settings/oh-my-zsh"
+            force: yes
+      - name: Cloning zsh-autosuggestion from git
+        git:
+            repo:  https://github.com/zsh-users/zsh-autosuggestions
+            dest: "{{ansible_env.HOME}}/my-settings/oh-my-zsh/plugins/zsh-autosuggestions"
+            force: yes  
+      - name: Cloning zsh-syntax-hylighting from git
+        git:
+            repo:  https://github.com/zsh-users/zsh-syntax-highlighting.git
+            dest: "{{ansible_env.HOME}}/my-settings/oh-my-zsh/plugins/zsh-syntax-highlighting"
+            force: yes  
+      - name: Cloning zsh-you-should-use from git
+        git:
+            repo: https://github.com/MichaelAquilina/zsh-you-should-use.git
+            dest: "{{ansible_env.HOME}}/my-settings/oh-my-zsh/zsh-you-should-use"
+            force: yes  
+      - name: Cloning powerlevel10k from git
         git:
             repo: https://github.com/romkatv/powerlevel10k.git
-            dest: my-settings/powerlevel10k 
-      - name: Cloning my-settings from tpm
+            dest: "{{ansible_env.HOME}}/my-settings/powerlevel10k"
+            force: yes
+      - name: Install tmux
+        apt:
+          name: tmux
+          state: present
+        become: yes
+       
+      - name: Cloning tpm from tpm
         git:
             repo: https://github.com/tmux-plugins/tpm
-            dest: my-settings/tpm
+            dest: "{{ansible_env.HOME}}/my-settings/tpm"
+            force: yes
