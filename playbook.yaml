@@ -35,7 +35,7 @@
       - name: Cloning zsh-you-should-use from git
         git:
             repo: https://github.com/MichaelAquilina/zsh-you-should-use.git
-            dest: "{{ansible_env.HOME}}/my-settings/oh-my-zsh/zsh-you-should-use"
+            dest: "{{ansible_env.HOME}}/my-settings/oh-my-zsh/plugins/you-should-use"
             force: yes  
       - name: Cloning powerlevel10k from git
         git:
