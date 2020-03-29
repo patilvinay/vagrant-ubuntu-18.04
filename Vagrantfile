@@ -11,12 +11,12 @@ Vagrant.configure("2") do |config|
   # https://docs.vagrantup.com.
 
   hostname = "ubuntu.box"
-    locale = "en_GB.UTF.8"
+  locale = "en_GB.UTF.8"
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "hashicorp/bionic64"
   config.vm.box_check_update = false
-  config.vm.synced_folder "~/.ssh/", "/keys/.ssh"
+  #config.vm.synced_folder "~/.ssh/", "/keys/.ssh"
     
   config.vm.provider "virtualbox" do |v|
    # v.name = "vagrant_ubuntu18_vb"
@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
   #config.vm.provision "shell", 
     #path: "provision/script.sh",privileged: true
  
-  config.vm.boot_timeout =500
+  config.vm.boot_timeout =300
   #config.ssh.username = "vinay"
   #config.ssh.username = "vinay"
   #config.ssh.password = "welcome"
@@ -36,8 +36,10 @@ Vagrant.configure("2") do |config|
   
   #config.vm.provision :shell, :inline => "hostnamectl set-hostname #{hostname} && locale-gen #{locale}"
   #config.vm.provision :shell, :inline => "apt-get update --fix-missing"
-  config.vm.provision :shell, :inline => "apt-get install -y python-pip ansible git"
-  #config.vm.provision :shell, :inline => "apt-get install -q -y g++ make git curl vim"
+  #config.vm.provision :shell, :inline => "apt-get update "
+  #config.vm.provision :shell, :inline => "apt-get install -y python3-pip git software-properties-common"
+  config.vm.provision :shell, :inline => "sudo apt-add-repository --yes --update ppa:ansible/ansible"
+  config.vm.provision :shell, :inline => "apt-get install -q -y ansible g++ make git curl vim"
 
 
   # Disable automatic box update checking. If you disable this, then
@@ -75,24 +77,7 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
-  #
-  # View the documentation for the provider you are using for more
-  # information on available options.
-
-  # Enable provisioning with a shell script. Additional provisioners such as
-  # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
-  # documentation for more information about their specific syntax and use.
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   apt-get update
-  #   apt-get install -y apache2
-  # SHELL
+ 
 
 
  
