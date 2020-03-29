@@ -1,0 +1,19 @@
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+      - name: Cloning my-settings from git
+        git:
+            repo: https://github.com/patilvinay/my-settings.git
+            dest: my-settings
+      - name: Cloning my-settings from oh my zsh
+        git:
+            repo:  https://github.com/ohmyzsh/ohmyzsh.git
+            dest: my-settings/oh-my-zsh
+      - name: Cloning my-settings from powerlevel10k
+        git:
+            repo: https://github.com/romkatv/powerlevel10k.git
+            dest: my-settings/powerlevel10k 
+      - name: Cloning my-settings from tpm
+        git:
+            repo: https://github.com/tmux-plugins/tpm
+            dest: my-settings/tpm

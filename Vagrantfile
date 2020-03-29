@@ -25,8 +25,8 @@ Vagrant.configure("2") do |config|
   end
 
   #config.vm.provision "file", source: "~/.ssh/vinay-wsl-git", destination: "~/.ssh/git"
-  config.vm.provision "shell", 
-    path: "provision/script.sh",privileged: true
+  #config.vm.provision "shell", 
+    #path: "provision/script.sh",privileged: true
  
   config.vm.boot_timeout =500
   #config.ssh.username = "vinay"
@@ -34,9 +34,10 @@ Vagrant.configure("2") do |config|
   #config.ssh.password = "welcome"
 
   
-  config.vm.provision :shell, :inline => "hostnamectl set-hostname #{hostname} && locale-gen #{locale}"
-  config.vm.provision :shell, :inline => "apt-get update --fix-missing"
-  config.vm.provision :shell, :inline => "apt-get install -q -y g++ make git curl vim"
+  #config.vm.provision :shell, :inline => "hostnamectl set-hostname #{hostname} && locale-gen #{locale}"
+  #config.vm.provision :shell, :inline => "apt-get update --fix-missing"
+  config.vm.provision :shell, :inline => "apt-get install -y python-pip ansible git"
+  #config.vm.provision :shell, :inline => "apt-get install -q -y g++ make git curl vim"
 
 
   # Disable automatic box update checking. If you disable this, then
@@ -62,7 +63,7 @@ Vagrant.configure("2") do |config|
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
-  config.vm.network "public_network"
+ # config.vm.network "public_network"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -92,4 +93,18 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+
+
+ 
+    # Run Ansible from the Vagrant VM
+    config.vm.provision "ansible_local" do |ansible|
+     # ansible.inventory_path = "hosts"
+      ansible.playbook = "playbook.yaml"
+     # ansible.install_mode = "pip"
+    end
+      
+ 
+
+
+
 end
