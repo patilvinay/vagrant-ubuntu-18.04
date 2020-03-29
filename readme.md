@@ -42,5 +42,5 @@ cd my-settings
 
 These files are provided in assets directory
 ## vm looks like this
-![image](./assets/img/vagrant-ssh.png)
+![image](./assets/img/vagrant-ssh.PNG)
 
