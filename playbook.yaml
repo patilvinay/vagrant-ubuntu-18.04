@@ -42,6 +42,8 @@
             repo: https://github.com/romkatv/powerlevel10k.git
             dest: "{{ansible_env.HOME}}/my-settings/powerlevel10k"
             force: yes
+
+
       - name: Install tmux
         apt:
           name: tmux
@@ -51,5 +53,5 @@
       - name: Cloning tpm from tpm
         git:
             repo: https://github.com/tmux-plugins/tpm
-            dest: "{{ansible_env.HOME}}/my-settings/tpm"
+            dest: "{{ansible_env.HOME}}/my-settings/tmux/plugins"
             force: yes

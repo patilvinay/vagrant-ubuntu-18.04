@@ -16,7 +16,8 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "hashicorp/bionic64"
   config.vm.box_check_update = false
-  #config.vm.synced_folder "~/.ssh/", "/keys/.ssh"
+  #config.vm.synced_folder "~/my-settings/", "/home/vagrant/my-settings",type:"nfs"
+  config.vm.synced_folder "d:\\vbhome.", "/homeonhost", type: "nfs"
     
   config.vm.provider "virtualbox" do |v|
     v.name = "vagrant_ubuntu18_vb"
@@ -41,9 +42,8 @@ Vagrant.configure("2") do |config|
     trigger.ignore = [:destroy, :halt]
   end
 
-  Vagrant.configure("2") do |config|
-    config.vm.synced_folder "d:\vbhome.", "/homeonhost", type: "nfs"
-  end
+  
+  
   
 
   #config.vm.provision "file", source: "~/.ssh/vinay-wsl-git", destination: "~/.ssh/git"
@@ -105,7 +105,7 @@ Vagrant.configure("2") do |config|
  
     # Run Ansible from the Vagrant VM
     config.vm.provision "ansible_local" do |ansible|
-     # ansible.inventory_path = "hosts"
+      ansible.inventory_path = "hosts.ini"
       ansible.playbook = "playbook.yaml"
      # ansible.install_mode = "pip"
     end
