@@ -1,5 +1,5 @@
 # Vagrant box Ubuntu-18.04
-
+## (This work still is not under development)
 ## installed packages
 1. zsh
     1. oh-my-zsh plugin
