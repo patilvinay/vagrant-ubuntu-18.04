@@ -19,10 +19,32 @@ Vagrant.configure("2") do |config|
   #config.vm.synced_folder "~/.ssh/", "/keys/.ssh"
     
   config.vm.provider "virtualbox" do |v|
-   # v.name = "vagrant_ubuntu18_vb"
+    v.name = "vagrant_ubuntu18_vb"
     v.memory = 2048
     v.cpus = 2
   end
+
+
+  config.push.define "local-exec" do |push|
+    push.inline = <<-SCRIPT
+      echo "hello"
+    SCRIPT
+  end
+
+  config.trigger.after :up do |trigger|
+    trigger.name = "Finished Message"
+    trigger.info = "Machine is up!"
+  end
+
+  config.trigger.before :up do |trigger|
+    trigger.info = "Machine starting!"
+    trigger.ignore = [:destroy, :halt]
+  end
+
+  Vagrant.configure("2") do |config|
+    config.vm.synced_folder "d:\vbhome.", "/homeonhost", type: "nfs"
+  end
+  
 
   #config.vm.provision "file", source: "~/.ssh/vinay-wsl-git", destination: "~/.ssh/git"
   #config.vm.provision "shell", 
@@ -34,10 +56,10 @@ Vagrant.configure("2") do |config|
   #config.ssh.password = "welcome"
 
   
-  #config.vm.provision :shell, :inline => "hostnamectl set-hostname #{hostname} && locale-gen #{locale}"
-  #config.vm.provision :shell, :inline => "apt-get update --fix-missing"
-  #config.vm.provision :shell, :inline => "apt-get update "
-  #config.vm.provision :shell, :inline => "apt-get install -y python3-pip git software-properties-common"
+  config.vm.provision :shell, :inline => "hostnamectl set-hostname #{hostname} && locale-gen #{locale}"
+  config.vm.provision :shell, :inline => "apt-get update --fix-missing"
+  config.vm.provision :shell, :inline => "apt-get update "
+  config.vm.provision :shell, :inline => "apt-get install -y python3-pip git software-properties-common"
   config.vm.provision :shell, :inline => "sudo apt-add-repository --yes --update ppa:ansible/ansible"
   config.vm.provision :shell, :inline => "apt-get install -q -y ansible g++ make git curl vim"
 
@@ -65,7 +87,7 @@ Vagrant.configure("2") do |config|
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
- # config.vm.network "public_network"
+  config.vm.network "public_network"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
