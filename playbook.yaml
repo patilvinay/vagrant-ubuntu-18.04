@@ -1,4 +1,4 @@
-- hosts: localhost
+- hosts: localhost1
   connection: local
   tasks:
       - name: debug specified user's home dir through ansible.env
@@ -55,3 +55,10 @@
             repo: https://github.com/tmux-plugins/tpm
             dest: "{{ansible_env.HOME}}/my-settings/tmux/plugins"
             force: yes
+
+            
+- hosts: localhost
+  connection: local
+  roles: 
+    - ansible-role-kubectl
+  become: yes
