@@ -1,5 +1,5 @@
 # Vagrant box Ubuntu-18.04
-## (This work still is not under development)
+##  Release 0.0.1 can be used
 ## installed packages
 1. zsh
     1. oh-my-zsh plugin
@@ -19,6 +19,9 @@
 1. git clone code for creating vagrant box
 ```
 git clone https://github.com/patilvinay/vagrant-ubuntu-18.04.git
+git checkout 0.0.1 
+you can use the latest release
+
 ```
 2. cd vagrant-ubuntu-18.04
 3. vagrant up
