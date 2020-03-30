@@ -1,0 +1,22 @@
+---
+ - name: Install tmux
+   apt:
+      name: tmux
+      state: present
+   become: yes
+       
+ - name: Cloning tpm from tpm
+   git:
+     repo: https://github.com/tmux-plugins/tpm
+     dest: "{{ansible_env.HOME}}/my-settings/tmux/plugins"
+     force: yes
+ - name: Setup tmux.conf
+   file:
+      src: "{{ansible_env.HOME}}/my-settings/conf/.tmux.conf"
+      dest: "{{ansible_env.HOME}}/.tmux.conf"
+      state: link
+ - name: Setup tmux
+   file:
+      src: "{{ansible_env.HOME}}/my-settings/tmux"
+      dest: "{{ansible_env.HOME}}/.tmux"
+      state: link
