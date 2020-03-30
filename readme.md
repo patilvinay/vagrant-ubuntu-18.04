@@ -9,7 +9,7 @@
     5. you should use
 2. tmux
 
-## prerequiste on host
+## Pre-requiste on host
 1. git bash (git bash comes with git installation)
 2. Vagrant 
 3. Virtual Box (5.2.38)
@@ -29,6 +29,9 @@ git clone https://github.com/patilvinay/vagrant-ubuntu-18.04.git
 2. Install the font 'MesloLGS NF Regular.ttf'. just right click and select install.
 
 These files are provided in assets directory
-## vm looks like this
+## vm zsh looks like this
 ![image](./assets/img/vagrant-ssh.PNG)
+## vm tmux looks link this
+![image](./assets/img/tmux.png)
+
 
