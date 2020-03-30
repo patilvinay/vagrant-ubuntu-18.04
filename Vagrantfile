@@ -16,8 +16,9 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "hashicorp/bionic64"
   config.vm.box_check_update = false
-  #config.vm.synced_folder "~/my-settings/", "/home/vagrant/my-settings",type:"nfs"
+  config.vm.synced_folder "~/my-settings/", "/home/vagrant/my-settings",type:"nfs"
   config.vm.synced_folder "d:\\vbhome.", "/homeonhost", type: "nfs"
+  config.vm.provision "file", source: "~/.ssh/", destination: "~/.ssh-host/"
     
   config.vm.provider "virtualbox" do |v|
     v.name = "vagrant_ubuntu18_vb"
@@ -42,14 +43,6 @@ Vagrant.configure("2") do |config|
     trigger.ignore = [:destroy, :halt]
   end
 
-  
-  
-  
-
-  #config.vm.provision "file", source: "~/.ssh/vinay-wsl-git", destination: "~/.ssh/git"
-  #config.vm.provision "shell", 
-    #path: "provision/script.sh",privileged: true
- 
   config.vm.boot_timeout =300
   #config.ssh.username = "vinay"
   #config.ssh.username = "vinay"
