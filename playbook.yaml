@@ -1,5 +1,7 @@
 - hosts: localhost
   connection: local
+  vars:
+    the_user: "{{ ansible_user_id }}"
   tasks:
       - name: debug specified user's home dir through ansible.env
         debug: var=ansible_env.HOME
@@ -42,6 +44,32 @@
             repo: https://github.com/romkatv/powerlevel10k.git
             dest: "{{ansible_env.HOME}}/my-settings/powerlevel10k"
             force: yes
+      - name: Setup .oh-my-zsh
+        file:
+          src: "{{ansible_env.HOME}}/my-settings/oh-my-zsh"
+          dest: "{{ansible_env.HOME}}/.oh-my-zsh"
+          state: link
+      - name: Setup powerlevel10K
+        file:
+          src: "{{ansible_env.HOME}}/my-settings/powerlevel10k"
+          dest: "{{ansible_env.HOME}}/.powerlevel10k"
+          state: link
+     
+      - name: Setup zshrc
+        file:
+          src: "{{ansible_env.HOME}}/my-settings/conf/.zshrc"
+          dest: "{{ansible_env.HOME}}/.zshrc"
+          state: link
+      - name: Setup  p10k.zsh
+        file:
+          src: "{{ansible_env.HOME}}/my-settings/conf/.p10k.zsh"
+          dest: "{{ansible_env.HOME}}/.p10k.zsh"
+          state: link
+      - name: Change default shell to zsh 
+        become: yes
+        user:
+           name: "{{ the_user }}"
+           shell: /bin/zsh
 
 
       - name: Install tmux
@@ -55,6 +83,24 @@
             repo: https://github.com/tmux-plugins/tpm
             dest: "{{ansible_env.HOME}}/my-settings/tmux/plugins"
             force: yes
+      - name: Setup tmux.conf
+        file:
+            src: "{{ansible_env.HOME}}/my-settings/conf/.tmux.conf"
+            dest: "{{ansible_env.HOME}}/.tmux.conf"
+            state: link
+      - name: Setup tmux
+        file:
+          src: "{{ansible_env.HOME}}/my-settings/tmux"
+          dest: "{{ansible_env.HOME}}/.tmux"
+          state: link
+
+
+      - name: Setup vimrc
+        file:
+           src: "{{ansible_env.HOME}}/my-settings/conf/.vimrc"
+           dest: "{{ansible_env.HOME}}/.vimrc"
+           state: link
+
 
       
 
@@ -64,73 +110,13 @@
     - ansible-role-kubectl
   become: yes
 
-- hosts: localhost
-  connection: local
-  vars:
-    the_user: "{{ ansible_user_id }}"
-  tasks:
-    - name: change user shell to zsh 
-      become: yes
-      user:
-        name: "{{ the_user }}"
-        shell: /bin/zsh
 
 
   
 
-- hosts: localhost
-  connection: local
-  tasks:     
-    - name: Setup .oh-my-zsh
-      file:
-        src: "{{ansible_env.HOME}}/my-settings/oh-my-zsh"
-        dest: "{{ansible_env.HOME}}/.oh-my-zsh"
-        state: link
-    - name: Setup powerlevel10K
-      file:
-        src: "{{ansible_env.HOME}}/my-settings/powerlevel10k"
-        dest: "{{ansible_env.HOME}}/.powerlevel10k"
-        state: link
-    - name: Setup tmux
-      file:
-        src: "{{ansible_env.HOME}}/my-settings/tmux"
-        dest: "{{ansible_env.HOME}}/.tmux"
-        state: link
-         
 
-    # - name: Setup vim
-    #   file:
-    #     src: "{{ansible_env.HOME}}/my-settings/vim"
-    #     dest: "{{ansible_env.HOME}}/conf/.vim"
-    #     state: link
-      
 
-    - name: Setup zshrc
-      file:
-        src: "{{ansible_env.HOME}}/my-settings/conf/.zshrc"
-        dest: "{{ansible_env.HOME}}/.zshrc"
-        state: link
-
-    - name: Setup  p10k.zsh
-      file:
-         src: "{{ansible_env.HOME}}/my-settings/conf/.p10k.zsh"
-         dest: "{{ansible_env.HOME}}/.p10k.zsh"
-         state: link
-     
-
-    - name: Setup tmux.conf
-      file:
-         src: "{{ansible_env.HOME}}/my-settings/conf/.tmux.conf"
-         dest: "{{ansible_env.HOME}}/.tmux.conf"
-         state: link
-      
-
-    - name: Setup vimrc
-      file:
-         src: "{{ansible_env.HOME}}/my-settings/conf/.vimrc"
-         dest: "{{ansible_env.HOME}}/.vimrc"
-         state: link
-
+    
 
 
 
