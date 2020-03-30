@@ -2,6 +2,13 @@
   connection: local
   vars:
     the_user: "{{ ansible_user_id }}"
-  roles: 
-    - bazel
+  become: true
+  #become_user:  "{{ ansible_user_id }}"
+  become_method: sudo
+  roles:
+    - andrewrothstein.bazel
+    - geerlingguy.pip
+    - geerlingguy.docker
+    - andrewrothstein.kind
+    
     

@@ -4,7 +4,6 @@
             repo: https://github.com/patilvinay/my-settings.git
             dest: "{{ansible_env.HOME}}/my-settings"
             force: yes
-             
       - name: Install zsh
         apt:
           name: zsh

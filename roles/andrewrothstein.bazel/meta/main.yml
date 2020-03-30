@@ -1,0 +1,24 @@
+dependencies:
+- openjdk_app: jdk
+  role: andrewrothstein.openjdk
+  version: v2.0.4
+galaxy_info:
+  author: Andrew Rothstein
+  company: BlackRock
+  description: installs bazel.build
+  galaxy_tags:
+  - development
+  - build
+  license:
+  - MIT
+  min_ansible_version: 2.0
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  - name: EL
+    version:
+    - all
+  - name: Fedora
+    version:
+    - all
