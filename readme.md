@@ -23,18 +23,6 @@ git clone https://github.com/patilvinay/vagrant-ubuntu-18.04.git
 2. cd vagrant-ubuntu-18.04
 3. vagrant up
 
-## Install on first boot(on guest)
-run this on host machine vagrant directory
-```
-vagrant up
-```
-Run this command inside the vm
-```
-ansible-playbook /vagrant/playbook.yaml
-cd my-settings
-./install
-```
-
 ## Other settings on host
 
 1. Use the ConEmu.xml file as a preference setting for ConEmu
