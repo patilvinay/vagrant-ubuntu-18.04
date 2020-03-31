@@ -70,6 +70,15 @@ Vagrant.configure("2") do |config|
       ansible.playbook = "./playbooks/playbook.yaml"
      # ansible.install_mode = "pip"
     end
+
+
+
+    config.vm.provision "ansible_local" do |ansible_node|
+      ansible_node.inventory_path = "./playbooks/hosts.ini"
+      ansible_node.playbook = "./playbooks/nodejs-playbook.yaml"
+     # ansible.install_mode = "pip"
+    end
+    
       
  
 
