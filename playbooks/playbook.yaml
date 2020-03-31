@@ -1,0 +1,44 @@
+- hosts: localhost
+  connection: local
+  vars:
+    the_user: "{{ ansible_user_id }}"
+  roles: 
+    - zsh
+    - tmux
+
+
+- hosts: localhost
+  connection: local
+  vars:
+    the_user: "{{ ansible_user_id }}"
+  roles: 
+    - ansible-role-kubectl
+  become: yes
+
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Setup vimrc
+      file:
+        src: "{{ansible_env.HOME}}/my-settings/conf/.vimrc"
+        dest: "{{ansible_env.HOME}}/.vimrc"
+        state: link
+
+
+      
+
+
+
+
+  
+
+
+
+    
+
+
+
+
+
+
+      
