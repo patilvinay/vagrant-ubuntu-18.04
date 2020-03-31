@@ -21,8 +21,8 @@ Vagrant.configure("2") do |config|
     
   config.vm.provider "virtualbox" do |v|
     v.name = "vagrant_ubuntu18_vb"
-    v.memory = 2048
-    v.cpus = 2
+    v.memory = 4096
+    v.cpus = 4
   end
 
 
@@ -68,6 +68,12 @@ Vagrant.configure("2") do |config|
     config.vm.provision "ansible_local" do |ansible|
       ansible.inventory_path = "hosts.ini"
       ansible.playbook = "playbook.yaml"
+     # ansible.install_mode = "pip"
+    end
+
+    config.vm.provision "ansible_local" do |ansible1|
+      ansible1.inventory_path = "hosts.ini"
+      ansible1.playbook = "cert-manager-playbook.yaml"
      # ansible.install_mode = "pip"
     end
       
