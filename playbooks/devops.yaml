@@ -1,0 +1,14 @@
+- hosts: localhost
+  connection: local
+  vars:
+    the_user: "{{ ansible_user_id }}"
+  become: true
+  become_method: sudo
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
+    - ansible-role-kubectl
+ 
+
+
+    

@@ -49,10 +49,9 @@ Vagrant.configure("2") do |config|
 
   
   config.vm.provision :shell, :inline => "hostnamectl set-hostname #{hostname} && locale-gen #{locale}"
-  config.vm.provision :shell, :inline => "apt-get update --fix-missing"
   config.vm.provision :shell, :inline => "apt-get update "
   config.vm.provision :shell, :inline => "apt-get install -y python3-pip git software-properties-common"
-  config.vm.provision :shell, :inline => "sudo apt-add-repository --yes --update ppa:ansible/ansible"
+  config.vm.provision :shell, :inline => "sudo apt-add-repository --yes  ppa:ansible/ansible"
   config.vm.provision :shell, :inline => "apt-get install -q -y ansible g++ make git curl vim"
 
 
@@ -65,13 +64,19 @@ Vagrant.configure("2") do |config|
 
  
     # Run Ansible from the Vagrant VM
-    config.vm.provision "ansible_local" do |ansible|
-      ansible.inventory_path = "./playbooks/hosts.ini"
-      ansible.playbook = "./playbooks/playbook.yaml"
+    config.vm.provision "ansible_local" do |ansible_main|
+      ansible_main.inventory_path = "./playbooks/hosts.ini"
+      ansible_main.playbook = "./playbooks/main.yaml"
      # ansible.install_mode = "pip"
     end
 
 
+   # Run Ansible from the Vagrant VM
+   config.vm.provision "ansible_local" do |ansible_devops|
+    ansible_devops.inventory_path = "./playbooks/hosts.ini"
+    ansible_devops.playbook = "./playbooks/devops.yaml"
+   # ansible.install_mode = "pip"
+  end
 
 
     config.vm.provision "ansible_local" do |ansible_node|
@@ -81,12 +86,7 @@ Vagrant.configure("2") do |config|
     end
     
 
-    config.vm.provision "ansible_local" do |ansible1|
-      ansible1.inventory_path = "./playbooks/hosts.ini"
-      ansible1.playbook = "./playbooks/cert-manager-playbook.yaml"
-     # ansible.install_mode = "pip"
-    end
-
+ 
       
  
 
