@@ -30,6 +30,7 @@ Vagrant.configure("2") do |config|
       v.customize ['createhd', '--filename', disk2, '--size', 100 * 1024] ## 100G
      end
       v.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk2]
+      
     
   end
 
@@ -49,6 +50,9 @@ Vagrant.configure("2") do |config|
   config.trigger.after :up do |trigger|
     trigger.name = "Finished Message"
     trigger.info = "Machine is up!"
+
+    trigger.run_remote = {inline: " sudo mount /dev/sdb1 d2; sudo chown  vagrant:vagrant -R /home/vagrant/d2"}
+ 
   end
 
   config.trigger.before :up do |trigger|
