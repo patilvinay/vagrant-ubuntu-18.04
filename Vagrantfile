@@ -30,10 +30,8 @@ Vagrant.configure("2") do |config|
       v.customize ['createhd', '--filename', disk2, '--size', 100 * 1024] ## 100G
      end
       v.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk2]
-      
-    
+   
   end
-
 
 
 
@@ -50,17 +48,25 @@ Vagrant.configure("2") do |config|
   config.trigger.after :up do |trigger|
     trigger.name = "Finished Message"
     trigger.info = "Machine is up!"
-
-    trigger.run_remote = {inline: " sudo mount /dev/sdb1 d2; sudo chown  vagrant:vagrant -R /home/vagrant/d2"}
- 
+    trigger.run_remote = {inline: " mkdir -p /home/vagrant/d2;sudo mount /dev/sdb1 d2; sudo chown  vagrant:vagrant -R /home/vagrant/d2; export HISTFILE=~/home/vagrant/d2/.zshhistory"}
   end
 
   config.trigger.before :up do |trigger|
     trigger.info = "Machine starting!"
     trigger.ignore = [:destroy, :halt]
   end
+  config.trigger.before [:halt, :destroy] do |trigger|
+    trigger.info = "Ignoring halt"
+    trigger.ignore = [:destroy, :halt]
+    puts "Hello World"
+   # config.vm.provider.customize ['closemedium', '--medium', disk2]
+  end
 
-  config.vm.boot_timeout =300
+ 
+
+
+
+  config.vm.boot_timeout =600
   #config.ssh.username = "vinay"
   #config.ssh.username = "vinay"
   #config.ssh.password = "welcome"

@@ -7,7 +7,7 @@
   roles:
     - geerlingguy.pip
     - geerlingguy.docker
-    - geerlingguy.kubectl
+    - andrewrothstein.kubectl
     #- ansible-role-kubectl
  
 
