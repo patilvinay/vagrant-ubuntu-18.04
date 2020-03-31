@@ -5,6 +5,9 @@
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
+disk2 = 'd:\\vm-disks\\disk-2.vdi'
+
+
 Vagrant.configure("2") do |config|
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
@@ -16,14 +19,25 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "hashicorp/bionic64"
   config.vm.box_check_update = false
-  config.vm.synced_folder "d:\\vbhome.", "/homeonhost", type: "nfs"
   config.vm.provision "file", source: "~/.ssh/", destination: "~/.ssh-host"
     
   config.vm.provider "virtualbox" do |v|
     v.name = "vagrant_ubuntu18_vb"
     v.memory = 4096
     v.cpus = 4
+
+    unless File.exist?(disk2)
+      v.customize ['createhd', '--filename', disk2, '--size', 100 * 1024] ## 100G
+     end
+      v.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk2]
+    
   end
+
+
+
+
+  
+
 
 
   config.push.define "local-exec" do |push|
@@ -53,13 +67,14 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :inline => "apt-get install -y python3-pip git software-properties-common"
   config.vm.provision :shell, :inline => "sudo apt-add-repository --yes  ppa:ansible/ansible"
   config.vm.provision :shell, :inline => "apt-get install -q -y ansible g++ make git curl vim"
+  config.vm.provision :shell, :inline => "apt-get install -q -y xfsprogs"
+  
 
 
   
   config.vm.network "public_network"
 
   
- 
 
 
  
