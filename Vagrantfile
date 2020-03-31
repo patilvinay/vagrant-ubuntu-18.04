@@ -72,8 +72,8 @@ Vagrant.configure("2") do |config|
     end
 
     config.vm.provision "ansible_local" do |ansible1|
-      ansible1.inventory_path = "hosts.ini"
-      ansible1.playbook = "cert-manager-playbook.yaml"
+      ansible1.inventory_path = "./playbooks/hosts.ini"
+      ansible1.playbook = "./playbooks/cert-manager-playbook.yaml"
      # ansible.install_mode = "pip"
     end
       
