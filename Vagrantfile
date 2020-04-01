@@ -5,7 +5,7 @@
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
-disk2 = 'd:\\vm-disks\\disk-2.vdi'
+#disk2 = 'd:\\vm-disks\\disk-2.vdi'
 
 
 Vagrant.configure("2") do |config|
@@ -19,17 +19,17 @@ Vagrant.configure("2") do |config|
   # boxes at https://vagrantcloud.com/search.
   config.vm.box = "hashicorp/bionic64"
   config.vm.box_check_update = false
-  config.vm.provision "file", source: "~/.ssh/", destination: "~/.ssh-host"
+  #config.vm.provision "file", source: "~/.ssh/", destination: "~/.ssh-host"
     
   config.vm.provider "virtualbox" do |v|
-    v.name = "vagrant_ubuntu18_vb"
-    v.memory = 4096
-    v.cpus = 4
+    #v.name = "vagrant_ubuntu18_vb"
+    v.memory = 2048
+    v.cpus = 2
 
-    unless File.exist?(disk2)
-      v.customize ['createhd', '--filename', disk2, '--size', 100 * 1024] ## 100G
-     end
-      v.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk2]
+    # unless File.exist?(disk2)
+    #   v.customize ['createhd', '--filename', disk2, '--size', 100 * 1024] ## 100G
+    #  end
+    #   v.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk2]
    
   end
 
@@ -48,7 +48,7 @@ Vagrant.configure("2") do |config|
   config.trigger.after :up do |trigger|
     trigger.name = "Finished Message"
     trigger.info = "Machine is up!"
-    trigger.run_remote = {inline: " mkdir -p /home/vagrant/d2;sudo mount /dev/sdb1 d2; sudo chown  vagrant:vagrant -R /home/vagrant/d2; export HISTFILE=~/home/vagrant/d2/.zshhistory"}
+   # trigger.run_remote = {inline: " mkdir -p /home/vagrant/d2;sudo mount /dev/sdb1 d2; sudo chown  vagrant:vagrant -R /home/vagrant/d2; export HISTFILE=~/home/vagrant/d2/.zshhistory"}
   end
 
   config.trigger.before :up do |trigger|
@@ -58,8 +58,6 @@ Vagrant.configure("2") do |config|
   config.trigger.before [:halt, :destroy] do |trigger|
     trigger.info = "Ignoring halt"
     trigger.ignore = [:destroy, :halt]
-    puts "Hello World"
-   # config.vm.provider.customize ['closemedium', '--medium', disk2]
   end
 
  
@@ -67,9 +65,7 @@ Vagrant.configure("2") do |config|
 
 
   config.vm.boot_timeout =600
-  #config.ssh.username = "vinay"
-  #config.ssh.username = "vinay"
-  #config.ssh.password = "welcome"
+
 
   
   config.vm.provision :shell, :inline => "hostnamectl set-hostname #{hostname} && locale-gen #{locale}"
@@ -92,7 +88,6 @@ Vagrant.configure("2") do |config|
     config.vm.provision "ansible_local" do |ansible_main|
       ansible_main.inventory_path = "./playbooks/hosts.ini"
       ansible_main.playbook = "./playbooks/main.yaml"
-     # ansible.install_mode = "pip"
     end
 
 
@@ -100,16 +95,14 @@ Vagrant.configure("2") do |config|
    config.vm.provision "ansible_local" do |ansible_devops|
     ansible_devops.inventory_path = "./playbooks/hosts.ini"
     ansible_devops.playbook = "./playbooks/devops.yaml"
-   # ansible.install_mode = "pip"
-  end
+   end
 
 
     config.vm.provision "ansible_local" do |ansible_node|
       ansible_node.inventory_path = "./playbooks/hosts.ini"
       ansible_node.playbook = "./playbooks/nodejs-playbook.yaml"
-     # ansible.install_mode = "pip"
     end
-    
+   
 
  
       
