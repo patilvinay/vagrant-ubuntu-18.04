@@ -48,7 +48,12 @@ Vagrant.configure("2") do |config|
   config.trigger.after :up do |trigger|
     trigger.name = "Finished Message"
     trigger.info = "Machine is up!"
-   # trigger.run_remote = {inline: " mkdir -p /home/vagrant/d2;sudo mount /dev/sdb1 d2; sudo chown  vagrant:vagrant -R /home/vagrant/d2; export HISTFILE=~/home/vagrant/d2/.zshhistory"}
+    trigger.run_remote = {inline: " mkdir -p /home/vagrant/d2;sudo mount /dev/sdb1 d2;
+    sudo chown  vagrant:vagrant -R /home/vagrant/d2;
+     mv /home/vagrant/.zsh_history /home/vagrant/.zsh_history1; 
+     ln -sf /home/vagrant/d2/.zshhistory /home/vagrant/.zsh_history;
+     ln -sf /home/vagrant/d2/.kube /home/vagrant/.kube"}
+
   end
 
   config.trigger.before :up do |trigger|
