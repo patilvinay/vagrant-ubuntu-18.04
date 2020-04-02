@@ -1,0 +1,12 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Deploy site files from Github repository
+      git:
+        repo: git@github.com:patilvinay/nbp-ms.git
+        dest: ~/d2/nbp-ms
+        key_file: "{{ lookup('env','HOME') }}/.ssh-host/vinay-wsl-git"
+        accept_hostkey: yes
+        force: yes
+      become: vagrant

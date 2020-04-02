@@ -23,12 +23,12 @@ Vagrant.configure("2") do |config|
     
   config.vm.provider "virtualbox" do |v|
     #v.name = "vagrant_ubuntu18_vb"
-    v.memory = 2048
-    v.cpus = 2
+    v.memory = 2048*4
+    v.cpus = 4
 
-    # unless File.exist?(disk2)
-    #   v.customize ['createhd', '--filename', disk2, '--size', 100 * 1024] ## 100G
-    #  end
+     unless File.exist?(disk2)
+       v.customize ['createhd', '--filename', disk2, '--size', 100 * 1024] ## 100G
+      end
        v.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk2]
    
   end
@@ -50,7 +50,6 @@ Vagrant.configure("2") do |config|
     trigger.info = "Machine is up!"
     trigger.run_remote = {inline: " mkdir -p /home/vagrant/d2;sudo mount /dev/sdb1 d2;
     sudo chown  vagrant:vagrant -R /home/vagrant/d2;
-     mv /home/vagrant/.zsh_history /home/vagrant/.zsh_history1; 
      ln -sf /home/vagrant/d2/.zshhistory /home/vagrant/.zsh_history;
      ln -sf /home/vagrant/d2/.kube /home/vagrant/.kube"}
 
