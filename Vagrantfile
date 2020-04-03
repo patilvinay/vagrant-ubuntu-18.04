@@ -9,14 +9,9 @@ disk2 = 'd:\\vm-disks\\disk-2.vdi'
 
 
 Vagrant.configure("2") do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
 
   hostname = "ubuntu.box"
   locale = "en_GB.UTF.8"
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://vagrantcloud.com/search.
   config.vm.box = "hashicorp/bionic64"
   config.vm.box_check_update = false
   #config.vm.provision "file", source: "~/.ssh/", destination: "~/.ssh-host"
@@ -33,17 +28,6 @@ Vagrant.configure("2") do |config|
    
   end
 
-
-
-  
-
-
-
-  config.push.define "local-exec" do |push|
-    push.inline = <<-SCRIPT
-      echo "hello"
-    SCRIPT
-  end
 
   config.trigger.after :up do |trigger|
     trigger.name = "Finished Message"
@@ -64,30 +48,23 @@ Vagrant.configure("2") do |config|
     trigger.ignore = [:destroy, :halt]
   end
 
- 
-
-
-
   config.vm.boot_timeout =600
 
-
-  
   config.vm.provision :shell, :inline => "hostnamectl set-hostname #{hostname} && locale-gen #{locale}"
   config.vm.provision :shell, :inline => "apt-get update "
   config.vm.provision :shell, :inline => "apt-get install -y python3-pip "
   config.vm.provision :shell, :inline => "sudo apt-add-repository --yes  ppa:ansible/ansible"
   config.vm.provision :shell, :inline => "apt-get install -q -y ansible "
-
   config.vm.provision :shell, :inline => "apt-get install -q -y g++ make git curl vim software-properties-common xfsprogs"
   
 
   config.vm.network "public_network"
 
     # Run Ansible from the Vagrant VM
-    config.vm.provision "ansible_local" do |ansible_main|
+  config.vm.provision "ansible_local" do |ansible_main|
       ansible_main.inventory_path = "./playbooks/hosts.ini"
       ansible_main.playbook = "./playbooks/main.yaml"
-    end
+  end
 
 
 
