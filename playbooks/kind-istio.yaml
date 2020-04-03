@@ -7,7 +7,8 @@
   roles:
     - role: ngx.istio
       vars:
-       - kube_path: "{{ lookup('env','HOME') }}/.kube/kindconfig-new"    
+       - kube_path: "{{ lookup('env','HOME') }}/.kube/"
+       - kube_configfile: kindconfig-new   
        - path: /usr/local/istio/bin
 
  

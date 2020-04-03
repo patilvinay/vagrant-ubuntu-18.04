@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
   locale = "en_GB.UTF.8"
   config.vm.box = "hashicorp/bionic64"
   config.vm.box_check_update = false
-  #config.vm.provision "file", source: "~/.ssh/", destination: "~/.ssh-host"
+  config.vm.provision "file", source: "~/.ssh/", destination: "~/.ssh-host"
     
   config.vm.provider "virtualbox" do |v|
     #v.name = "vagrant_ubuntu18_vb"
@@ -50,7 +50,7 @@ Vagrant.configure("2") do |config|
   config.vm.boot_timeout =600
 
   config.vm.provision :shell, :inline => "hostnamectl set-hostname #{hostname} && locale-gen #{locale}"
-  config.vm.provision :shell, :inline => "apt-get update "
+  config.vm.provision :shell, :inline => "apt-get update --fix-missing"
   config.vm.provision :shell, :inline => "apt-get install -y python3-pip "
   config.vm.provision :shell, :inline => "sudo apt-add-repository --yes  ppa:ansible/ansible"
   config.vm.provision :shell, :inline => "apt-get install -q -y ansible "

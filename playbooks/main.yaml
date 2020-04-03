@@ -14,8 +14,8 @@
 - name: Installing kind and istio
   include: kind-istio.yaml
 
-- name: Installing ms-business
-  include: install-business-ms.yaml
+# - name: Installing ms-business
+#   include: install-business-ms.yaml
     
 
 

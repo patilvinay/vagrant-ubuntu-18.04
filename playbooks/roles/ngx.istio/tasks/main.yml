@@ -29,12 +29,18 @@
   
 - pause: seconds=60
 - debug:
-    msg: "{{ kube_path }}"
+    msg: "{{ kube_path }}/{{ kube_configfile }}"
+
+- name: Create a directory {{ kube_path }}
+  file:
+    path: "{{ kube_path }}"
+    state: directory
+    mode: '0755'
 
 - name: download kind k8s config file
   get_url:
      url: http://0.0.0.0:10080/config 
-     dest: "{{ kube_path }}"
+     dest: "{{ kube_path }}/{{ kube_configfile }}"
      force: yes
      mode: '0777'
   become: vagrant
@@ -42,14 +48,14 @@
 - shell: kubectl config use-context kind
   become: vagrant 
   environment:
-         KUBECONFIG: "{{ kube_path }}"
+         KUBECONFIG: "{{ kube_path }}/{{ kube_configfile }}"
 
 - shell: kubectl get pods --all-namespaces | grep istio | wc -w
   register: result
   become: vagrant 
   ignore_errors: yes
   environment:
-         KUBECONFIG: "{{ kube_path }}"
+         KUBECONFIG: "{{ kube_path }}/{{ kube_configfile }}"
 - debug: 
     var:  result.stdout_lines
 
@@ -70,8 +76,7 @@
              --set values.global.k8sIngress.gatewayName=ingressgateway 
              --set values.global.jwtPolicy=first-party-jwt --force
   environment:
-         KUBECONFIG: "{{ kube_path }}"
+         KUBECONFIG: "{{ kube_path }}/{{ kube_configfile }}"
          PATH: "{{ lookup('env','PATH') }}:{{ path }}"
   become: yes
-
   when:  result.stdout[0]  ==  "0"
