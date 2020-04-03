@@ -5,3 +5,14 @@
   roles: 
     - zsh
     - tmux
+
+  tasks:
+    - name: Installing packages
+      apt:
+        pkg:
+        - git
+        - g++
+        - make
+        - curl
+        - vim
+        - software-properties-common

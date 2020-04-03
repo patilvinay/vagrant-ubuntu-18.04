@@ -55,7 +55,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :inline => "apt-get install -y python3-pip "
   config.vm.provision :shell, :inline => "sudo apt-add-repository --yes  ppa:ansible/ansible"
   config.vm.provision :shell, :inline => "apt-get install -q -y ansible "
-  config.vm.provision :shell, :inline => "apt-get install -q -y g++ make git curl vim software-properties-common xfsprogs"
+  
   
 
   config.vm.network "public_network"
