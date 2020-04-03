@@ -5,7 +5,7 @@
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
-disk2 = 'd:\\vm-disks\\disk-2-1.vdi'
+disk2 = 'd:\\vm-disks\\disk-2.vdi'
 
 
 Vagrant.configure("2") do |config|
@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
   locale = "en_GB.UTF.8"
   config.vm.box = "hashicorp/bionic64"
   config.vm.box_check_update = false
-  config.vm.provision "file", source: "~/.ssh/", destination: "~/.ssh-host"
+  #config.vm.provision "file", source: "~/.ssh/", destination: "~/.ssh-host"
     
   config.vm.provider "virtualbox" do |v|
     #v.name = "vagrant_ubuntu18_vb"

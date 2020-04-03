@@ -11,7 +11,7 @@
      name: kind
      image: bsycorp/kind:latest-1.12
      state: started 
-     restart: yes
+     #restart: yes
      #state: stopped
      privileged: yes
      ports:
@@ -27,25 +27,41 @@
   retries: 60
   delay: 4
   
-- pause: seconds=60
+#- pause: seconds=60
+- debug:
+    msg: "{{ kube_path }}"
 
 - name: download kind k8s config file
   get_url:
      url: http://0.0.0.0:10080/config 
-     dest: "{{ lookup('env','KUBECONFIG') }}"
+     dest: "{{ kube_path }}"
      force: yes
      mode: '0777'
   become: vagrant
 
 - shell: kubectl config use-context kind
   become: vagrant 
+  environment:
+         KUBECONFIG: "{{ kube_path }}"
 
 - shell: kubectl get pods --all-namespaces | grep istio | wc -w
   register: result
   become: vagrant 
   ignore_errors: yes
+  environment:
+         KUBECONFIG: "{{ kube_path }}"
 - debug: 
     var:  result.stdout_lines
+
+
+- name: add {{path}} to path
+  lineinfile:  
+      dest: /etc/environment
+      state: present
+      backrefs: yes
+      regexp: 'PATH=(["]*)((?!.*?{{ path }}).*?)(["]*)$'
+      line: 'PATH=\1\2:{{ path }}\3'
+  become: yes
 
 - name: install istio
   command: istioctl manifest apply --set profile=demo --set values.gateways.istio-ingressgateway.sds.enabled=true 
@@ -53,4 +69,9 @@
              --set values.global.k8sIngress.enableHttps=true 
              --set values.global.k8sIngress.gatewayName=ingressgateway 
              --set values.global.jwtPolicy=first-party-jwt --force
+  environment:
+         KUBECONFIG: "{{ kube_path }}"
+         PATH: "{{ lookup('env','PATH') }}:{{ path }}"
+  become: yes
+
   when:  result.stdout[0]  ==  "0"

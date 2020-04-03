@@ -1,8 +1,45 @@
 - hosts: localhost
   connection: local
-  gather_facts: no
+  #gather_facts: no
   environment:
-          KUBECONFIG: "{{ lookup('env','HOME') }}/.kube/kindconfig-new"
-  roles:
-   - ngx.istio
+         KUBECONFIG: "{{ lookup('env','HOME') }}/.kube/kindconfig-new"
+  tasks:
+     - raw: export KUBECONFIG=~/.kube/kindconfig-new1   
+       register: result
+    #   become: vagrant
+     - debug:
+         #msg: "{{ result }}"
+         msg: "{{ lookup('env','KUBECONFIG') }}"
+     - shell: "echo $KUBECONFIG"
+       register: result
+     #  become: vagrant
+     - debug:
+         msg: "{{ result.stdout_lines[0] }}"
+        #msg: "{{ lookup('env','KUBECONFIG') }}"
+       become: vagrant
+     - shell:  kubectl config use-context kind
+       register: result
+       become: vagrant
+#        environment:
+#          KUBECONFIG: "{{ lookup('env','HOME') }}/.kube/kindconfig-new"
+     - debug:
+         msg: "{{ result }}"
+         #msg: "{{ lookup('env','KUBECONFIG') }}"
+       become: vagrant
+
     
+
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  become: vagrant
+  #meta: refresh_inventory
+  environment:
+        KUBECONFIG: "{{ lookup('env','HOME') }}/.kube/kindconfig-new"
+  roles:
+    - role: ngx.istio
+      vars:
+       - kube_path: "{{ lookup('env','HOME') }}/.kube/kindconfig-new"    
+       - path: /usr/local/istio/bin
+
+ 
