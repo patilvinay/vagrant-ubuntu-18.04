@@ -9,12 +9,12 @@
     - geerlingguy.docker
     #- andrewrothstein.kubectl
     - andrewrothstein.kubernetes-helm
-    - andrewrothstein.kind
-    - andrewrothstein.istio
+    #- andrewrothstein.kind
+    #- andrewrothstein.istio
 
 - hosts: localhost
   connection: local
-  
+
 
     #- ansible-role-kubectl
  
