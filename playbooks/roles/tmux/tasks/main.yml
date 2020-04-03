@@ -12,7 +12,7 @@
      force: yes
  - name: Setup tmux.conf
    file:
-           src: "{{ansible_env.HOME}}/my-settings/conf/.tmux.conf"
+      src: "{{ansible_env.HOME}}/my-settings/conf/.tmux.conf"
       dest: "{{ansible_env.HOME}}/.tmux.conf"
       state: link
  - name: Setup tmux
