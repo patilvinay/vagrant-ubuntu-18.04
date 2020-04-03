@@ -1,0 +1,56 @@
+---
+# tasks file for ngx.istio
+
+- name: install pip docker
+  pip:
+     name: docker
+     state: present  
+  become: yes
+- name: Start the kind k8s
+  docker_container:
+     name: kind
+     image: bsycorp/kind:latest-1.12
+     state: started 
+     restart: yes
+     #state: stopped
+     privileged: yes
+     ports:
+       - "8443:8443"
+       - "10080:10080"
+  become: yes
+- name: "wait for kind k8s to come up"
+  uri:
+    url: "http://0.0.0.0:10080/config"
+    status_code: 200
+  register: result
+  until: result.status == 200
+  retries: 60
+  delay: 4
+  
+- pause: seconds=60
+
+- name: download kind k8s config file
+  get_url:
+     url: http://0.0.0.0:10080/config 
+     dest: "{{ lookup('env','KUBECONFIG') }}"
+     force: yes
+     mode: '0777'
+  become: vagrant
+
+- shell: kubectl config use-context kind
+  become: vagrant 
+
+- shell: kubectl get pods --all-namespaces | grep istio | wc -w
+  register: result
+  become: vagrant 
+  ignore_errors: yes
+- debug: 
+    var:  result.stdout_lines
+
+- name: install istio
+  command: istioctl manifest apply --set profile=demo --set values.gateways.istio-ingressgateway.sds.enabled=true 
+             --set values.global.k8sIngress.enabled=true 
+             --set values.global.k8sIngress.enableHttps=true 
+             --set values.global.k8sIngress.gatewayName=ingressgateway 
+             --set values.global.jwtPolicy=first-party-jwt --force
+  when:  result.stdout[0]  ==  "0"

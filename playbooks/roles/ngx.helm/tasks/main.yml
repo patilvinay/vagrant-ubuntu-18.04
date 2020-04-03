@@ -1,5 +1,12 @@
 ---
 
+- name: Kubeconfig path
+  debug: msg={{ lookup('env','KUBECONFIG') }}
+
+- name: Setting Kube Context
+  shell: kubectl config use-context {{ helm_context }}
+  become: vagrant
+ 
 - name: "Checking name space {{ helm_ns }} exists"
   shell: kubectl get ns | grep  "{{ helm_ns }}" | wc -w
   register: result

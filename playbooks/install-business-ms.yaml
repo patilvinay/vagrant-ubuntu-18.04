@@ -10,13 +10,24 @@
         accept_hostkey: yes
       #  force: yes
       become: vagrant
+
+
+
+
 - hosts: localhost
   connection: local
   gather_facts: no
+## This role created install the helm chart in the k8s
+## it choose the k8s based on the config file of the k8s and the context selected
+## name space where the chart has to be executed has to be provided
+## app name to be proviced
+  environment:
+     KUBECONFIG: "{{ lookup('env','HOME') }}/.kube/kindconfig-new"
   vars:
     - helm_ns: ngx-ns
     - chart_path: "~/d2/nbp-ms "
     - app_name: business-ms
+    - helm_context: kind
   # tasks:
   #   - name: testing
   #     debug: msg={{ chart_path }}
