@@ -10,3 +10,8 @@
         accept_hostkey: yes
         force: yes
       become: vagrant
+  # var:
+  #   helm_ns: ngx-ns
+  roles:
+   - ngx.helm
+

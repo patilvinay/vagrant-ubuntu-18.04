@@ -1,0 +1,19 @@
+---
+- name: Checking if helm already installed
+  shell: helm list --namespace=ngx-ns | grep business-ms |wc -w
+  register: result
+  become: vagrant 
+- debug: 
+     var: "{{ helm_ns }}"
+
+- name: run Helm uninstall
+  shell: helm uninstall business-ms --namespace=ngx-ns
+  register: result
+  become: vagrant 
+  when: result.stdout_lines[0]  !=  "0"
+
+- name: run Helm install
+  shell: helm install business-ms ~/d2/nbp-ms --namespace=ngx-ns
+  register: result
+  become: vagrant 
+  when: result.stdout_lines[0]  !=  "0"
