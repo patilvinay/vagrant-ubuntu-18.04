@@ -26,10 +26,13 @@
   shell: helm list --namespace="{{ helm_ns }}" | grep  "{{ app_name }}" | wc -w
   register: result
   become: vagrant 
-- set_fact: helm_installed=result.stdout_lines[0]
+- set_fact: helm_installed="{{ result.stdout_lines[0] }}"
 - debug: 
-     #var:   result.stdout_lines
-     msg: "{{ chart_path }}"
+     msg:   "{{ helm_installed }}"
+     #msg: "{{ chart_path }}"
+# - debug: 
+#      msg:   "{{ result.stdout_lines[0] }}"
+#      #msg: "{{ chart_path }}"
 
 - name: run Helm uninstall
   shell: "helm uninstall {{ app_name }} --namespace={{ helm_ns }}"

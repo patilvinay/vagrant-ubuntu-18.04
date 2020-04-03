@@ -5,10 +5,10 @@
     - name: Deploy site files from Github repository
       git:
         repo: git@github.com:patilvinay/nbp-ms.git
-        dest: ~/d2/nbp-ms
+        dest: ~/nbp-ms
         key_file: "{{ lookup('env','HOME') }}/.ssh-host/vinay-wsl-git"
         accept_hostkey: yes
-      #  force: yes
+        force: yes
       become: vagrant
 
 
@@ -25,7 +25,7 @@
     - role: ngx.helm
       vars:
       - helm_ns: ngx-ns
-      - chart_path: "~/d2/nbp-ms "
+      - chart_path: "~/nbp-ms "
       - app_name: business-ms
       - helm_context: kind
       environment:

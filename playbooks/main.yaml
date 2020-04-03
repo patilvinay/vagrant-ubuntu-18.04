@@ -11,13 +11,11 @@
 # - name: Installing nodejs
 #   include: nodejs-playbook.yaml
 
-- name: Installing kind and istio
-  include: kind-istio.yaml
+# - name: Installing kind and istio
+#   include: kind-istio.yaml
 
-
-
-# - name: Installing ms-business
-#   include: install-business-ms.yaml
+- name: Installing ms-business
+  include: install-business-ms.yaml
     
 
 
