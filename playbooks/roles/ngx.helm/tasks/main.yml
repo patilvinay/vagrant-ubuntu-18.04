@@ -1,4 +1,20 @@
 ---
+
+- name: "Checking name space {{ helm_ns }} exists"
+  shell: kubectl get ns | grep  "{{ helm_ns }}" | wc -w
+  register: result
+- debug: 
+     #var:   result.stdout_lines
+     msg: "{{ result.stdout_lines }}"
+
+- name: "Creating name space {{ helm_ns }} "
+  shell: "kubectl create ns {{ helm_ns }}"
+  when:  result.stdout_lines[0]  ==  "0"
+
+- name: "Labeling the namespace {{ helm_ns }} istio-injection=enabled"
+  shell: "kubectl label ns {{ helm_ns }} istio-injection=enabled"
+  when:  result.stdout_lines[0]  ==  "0"
+
 - name: Checking if helm already installed
   shell: helm list --namespace="{{ helm_ns }}" | grep  "{{ app_name }}" | wc -w
   register: result
