@@ -1,19 +1,19 @@
 ---
 - name: Checking if helm already installed
-  shell: helm list --namespace=ngx-ns | grep business-ms |wc -w
+  shell: helm list --namespace="{{ helm_ns }}" | grep  "{{ app_name }}" | wc -w
   register: result
   become: vagrant 
 - debug: 
-     var: "{{ helm_ns }}"
+     #var:   result.stdout_lines
+     msg: "{{ chart_path }}"
 
 - name: run Helm uninstall
-  shell: helm uninstall business-ms --namespace=ngx-ns
-  register: result
+  shell: "helm uninstall {{ app_name }} --namespace={{ helm_ns }}"
   become: vagrant 
   when: result.stdout_lines[0]  !=  "0"
 
 - name: run Helm install
-  shell: helm install business-ms ~/d2/nbp-ms --namespace=ngx-ns
+  shell: "helm install  {{ app_name }} {{ chart_path }} --namespace={{ helm_ns }}"
   register: result
   become: vagrant 
-  when: result.stdout_lines[0]  !=  "0"
+  #when: result.stdout_lines[0]  ==  "0"

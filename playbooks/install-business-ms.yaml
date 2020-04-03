@@ -8,10 +8,20 @@
         dest: ~/d2/nbp-ms
         key_file: "{{ lookup('env','HOME') }}/.ssh-host/vinay-wsl-git"
         accept_hostkey: yes
-        force: yes
+      #  force: yes
       become: vagrant
-  # var:
-  #   helm_ns: ngx-ns
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    - helm_ns: ngx-ns
+    - chart_path: "~/d2/nbp-ms "
+    - app_name: business-ms
+  # tasks:
+  #   - name: testing
+  #     debug: msg={{ chart_path }}
   roles:
    - ngx.helm
+  
+
 

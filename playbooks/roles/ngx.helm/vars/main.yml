@@ -1,4 +1,3 @@
 ---
 # vars file for ngx.helm
-helm_ns:
-  - ngx-ns
+helm_ns: ngx-ns
