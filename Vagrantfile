@@ -74,20 +74,15 @@ Vagrant.configure("2") do |config|
   
   config.vm.provision :shell, :inline => "hostnamectl set-hostname #{hostname} && locale-gen #{locale}"
   config.vm.provision :shell, :inline => "apt-get update "
-  config.vm.provision :shell, :inline => "apt-get install -y python3-pip git software-properties-common"
+  config.vm.provision :shell, :inline => "apt-get install -y python3-pip "
   config.vm.provision :shell, :inline => "sudo apt-add-repository --yes  ppa:ansible/ansible"
-  config.vm.provision :shell, :inline => "apt-get install -q -y ansible g++ make git curl vim"
-  config.vm.provision :shell, :inline => "apt-get install -q -y xfsprogs"
+  config.vm.provision :shell, :inline => "apt-get install -q -y ansible "
+
+  config.vm.provision :shell, :inline => "apt-get install -q -y g++ make git curl vim software-properties-common xfsprogs"
   
 
-
-  
   config.vm.network "public_network"
 
-  
-
-
- 
     # Run Ansible from the Vagrant VM
     config.vm.provision "ansible_local" do |ansible_main|
       ansible_main.inventory_path = "./playbooks/hosts.ini"
@@ -95,18 +90,7 @@ Vagrant.configure("2") do |config|
     end
 
 
-   # Run Ansible from the Vagrant VM
-   config.vm.provision "ansible_local" do |ansible_devops|
-    ansible_devops.inventory_path = "./playbooks/hosts.ini"
-    ansible_devops.playbook = "./playbooks/devops.yaml"
-   end
 
-
-    config.vm.provision "ansible_local" do |ansible_node|
-      ansible_node.inventory_path = "./playbooks/hosts.ini"
-      ansible_node.playbook = "./playbooks/nodejs-playbook.yaml"
-    end
-   
 
  
       
