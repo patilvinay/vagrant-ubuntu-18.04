@@ -36,7 +36,6 @@ Vagrant.configure("2") do |config|
     sudo chown  vagrant:vagrant -R /home/vagrant/d2;
      ln -sf /home/vagrant/d2/.zshhistory /home/vagrant/.zsh_history;
      ln -sf /home/vagrant/d2/.kube /home/vagrant/.kube"}
-
   end
 
   config.trigger.before :up do |trigger|
