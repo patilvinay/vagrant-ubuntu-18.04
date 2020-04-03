@@ -1,18 +1,18 @@
 
-# - name: Playing essential
-#   include: essential.yaml
+- name: Playing essential
+  include: essential.yaml
 
-# - name: Installing docker
-#   include: devops.yaml
+- name: Installing docker
+  include: devops.yaml
 
-# - name: Installing cert-manager
-#   include: cert-manager-playbook.yaml
+- name: Installing cert-manager
+  include: cert-manager-playbook.yaml
 
-# - name: Installing nodejs
-#   include: nodejs-playbook.yaml
+- name: Installing nodejs
+  include: nodejs-playbook.yaml
 
-# - name: Installing kind and istio
-#   include: kind-istio.yaml
+- name: Installing kind and istio
+  include: kind-istio.yaml
 
 - name: Installing ms-business
   include: install-business-ms.yaml

@@ -11,14 +11,11 @@
     - role:  andrewrothstein.kubernetes-helm
     #- role: andrewrothstein.kind
     - role:  andrewrothstein.istio
-      # vars:
-      #     - istio_parent_install_dir: ~  
-
+     
 - hosts: localhost
   connection: local
 
 
-    #- ansible-role-kubectl
  
 
 
