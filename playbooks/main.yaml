@@ -11,8 +11,14 @@
 - name: Installing nodejs
   include: nodejs-playbook.yaml
 
-- name: Installing kind and istio
-  include: kind-istio.yaml
+
+#This will install is kind does not exist. If already exist it just starts the kind
+- name: Installing kind
+  include: kind.yaml
+
+
+# - name: Installing istio
+#   include: istio.yaml
 
 # - name: Installing ms-business
 #   include: install-business-ms.yaml

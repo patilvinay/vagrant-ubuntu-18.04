@@ -10,7 +10,7 @@
     - role:  andrewrothstein.kubectl
     - role:  andrewrothstein.kubernetes-helm
     #- role: andrewrothstein.kind
-    - role:  andrewrothstein.istio
+  
      
 - hosts: localhost
   connection: local

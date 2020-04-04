@@ -1,51 +1,25 @@
----
-# tasks file for ngx.istio
+###################################################################
+########################## Usage Example###########################
+# - hosts: localhost
+#   connection: local
+#   gather_facts: no
+#   become: vagrant
+#   environment:
+#         KUBECONFIG: "{{ lookup('env','HOME') }}/.kube/kindconfig-new"
+#   roles:
+#     - role: ngx.istio
+#       vars:
+#        - kube_path: "{{ lookup('env','HOME') }}/.kube/"
+#        - kube_configfile: kindconfig-new   
+#        - kube_context: kind
+#        - path: /usr/local/istio/bin
+#####################################################################
 
-- name: install pip docker
-  pip:
-     name: docker
-     state: present  
-  become: yes
-- name: Start the kind k8s
-  docker_container:
-     name: kind
-     image: bsycorp/kind:latest-1.12
-     state: started 
-     #restart: yes
-     #state: stopped
-     privileged: yes
-     ports:
-       - "8443:8443"
-       - "10080:10080"
-  become: yes
-- name: "wait for kind k8s to come up"
-  uri:
-    url: "http://0.0.0.0:10080/config"
-    status_code: 200
-  register: result
-  until: result.status == 200
-  retries: 60
-  delay: 4
-  
-- pause: seconds=60
-- debug:
-    msg: "{{ kube_path }}/{{ kube_configfile }}"
 
-- name: Create a directory {{ kube_path }}
-  file:
-    path: "{{ kube_path }}"
-    state: directory
-    mode: '0755'
 
-- name: download kind k8s config file
-  get_url:
-     url: http://0.0.0.0:10080/config 
-     dest: "{{ kube_path }}/{{ kube_configfile }}"
-     force: yes
-     mode: '0777'
-  become: vagrant
 
-- shell: kubectl config use-context kind
+
+- shell: kubectl config use-context {{ kube_context }}
   become: vagrant 
   environment:
          KUBECONFIG: "{{ kube_path }}/{{ kube_configfile }}"
@@ -79,4 +53,5 @@
          KUBECONFIG: "{{ kube_path }}/{{ kube_configfile }}"
          PATH: "{{ lookup('env','PATH') }}:{{ path }}"
   become: yes
+  ## istio will not intall is already installed, It skips
   when:  result.stdout[0]  ==  "0"

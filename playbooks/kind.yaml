@@ -5,7 +5,7 @@
   environment:
         KUBECONFIG: "{{ lookup('env','HOME') }}/.kube/kindconfig-new"
   roles:
-    - role: ngx.istio
+    - role: ngx.kind
       vars:
        - kube_path: "{{ lookup('env','HOME') }}/.kube/"
        - kube_configfile: kindconfig-new   
