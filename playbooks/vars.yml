@@ -1,0 +1,25 @@
+
+ do:
+   size: s-2vcpu-4gb
+   count: 3
+   region: blr1
+   tag: k8s
+   version: 1.16.6-do.2
+   name: k8s-070420
+
+
+ kube:
+   configfile: config 
+   context:  do-{{ do.region }}-{{ do.name }} 
+
+ ngx:
+    app_name: ms-business
+    ns: ngx-ns
+    chart: "~/d2/nbp-ms"
+    context: "{{ kube.context }}"
+    configfile: "{{ kube.configfile }}"
+    chartclone: false
+
+ cert_manager:
+   version: v0.14.1
+    

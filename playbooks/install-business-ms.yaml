@@ -1,22 +1,36 @@
 - hosts: localhost
   connection: local
   gather_facts: no
+  vars_files: 
+    - vars.yml
   tasks:
     - name: Deploy site files from Github repository
       git:
         repo: git@github.com:patilvinay/nbp-ms.git
-        dest: ~/nbp-ms
-        key_file: "{{ lookup('env','HOME') }}/.ssh-host/vinay-wsl-git"
+        dest: "{{ ngx.chart }}"
+        key_file: "{{ lookup('env','HOME') }}/.ssh-d2/vinay-wsl-git"
         accept_hostkey: yes
         force: yes
       become: vagrant
+      when: "{{ ngx.chartclone }} == true"
 
-
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  vars_files: 
+    - vars.yml
+  tasks:
+   - debug:
+      msg: "{{ ngx.configfile }}" 
+   - debug:
+      msg: "{{ ngx.app_name }}" 
 
 
 - hosts: localhost
   connection: local
   gather_facts: no
+  vars_files: 
+    - vars.yml
   roles:
 ## This role created install the helm chart in the k8s
 ## it choose the k8s based on the config file of the k8s and the context selected
@@ -24,12 +38,12 @@
 ## app name to be proviced
     - role: ngx.helm
       vars:
-      - helm_ns: ngx-ns
-      - chart_path: "~/nbp-ms "
-      - app_name: business-ms
-      - helm_context: kind
-      environment:
-        KUBECONFIG: "{{ lookup('env','HOME') }}/.kube/kindconfig-new"
+      - helm_ns: "{{ ngx.ns }}"
+      - chart_path: "{{ ngx.chart }}"
+      - app_name: "{{ ngx.app_name }}"
+      - helm_context: "{{ ngx.context }}"
+        environment:
+          KUBECONFIG: "{{ lookup('env','HOME') }}/.kube/{{ ngx.configfile }}"
       become: vagrant
   
 

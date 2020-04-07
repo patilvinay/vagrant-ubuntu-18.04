@@ -9,12 +9,13 @@
     - role:  geerlingguy.docker
     - role:  andrewrothstein.kubectl
     - role:  andrewrothstein.kubernetes-helm
-    #- role: andrewrothstein.kind
+    - role:  andrewrothstein.kind
+    - role:  andrewrothstein.bazel
+    - role:  geerlingguy.nodejs    
+
+    
   
      
-- hosts: localhost
-  connection: local
-
 
  
 

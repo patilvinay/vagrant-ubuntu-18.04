@@ -5,23 +5,7 @@
 - name: Installing docker
   include: devops.yaml
 
-- name: Installing cert-manager
-  include: cert-manager-playbook.yaml
 
-- name: Installing nodejs
-  include: nodejs-playbook.yaml
-
-
-#This will install is kind does not exist. If already exist it just starts the kind
-- name: Installing/restarting kind
-  include: kind.yaml
-
-
-# - name: Installing istio
-#   include: istio.yaml
-
-# - name: Installing ms-business
-#   include: install-business-ms.yaml
     
 
 
