@@ -36,5 +36,7 @@ These files are provided in assets directory
 ![image](./assets/img/vagrant-ssh.PNG)
 ## vm tmux looks link this
 ![image](./assets/img/tmux.png)
+## Cert-manager e2e dep setup in action
+![image](./assets/img/cert-e2e-deps-setup.png)
 
 

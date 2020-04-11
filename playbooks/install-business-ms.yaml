@@ -42,6 +42,7 @@
       - chart_path: "{{ ngx.chart }}"
       - app_name: "{{ ngx.app_name }}"
       - helm_context: "{{ ngx.context }}"
+      - domain: "{{ ngx.domain }}"
         environment:
           KUBECONFIG: "{{ lookup('env','HOME') }}/.kube/{{ ngx.configfile }}"
       become: vagrant

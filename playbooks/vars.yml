@@ -5,7 +5,7 @@
    region: blr1
    tag: k8s
    version: 1.16.6-do.2
-   name: k8s-070420
+   name: k8s-090420
 
 
  kube:
@@ -19,6 +19,7 @@
     context: "{{ kube.context }}"
     configfile: "{{ kube.configfile }}"
     chartclone: false
+    domain: "api.ngxconnect.in" 
 
  cert_manager:
    version: v0.14.1

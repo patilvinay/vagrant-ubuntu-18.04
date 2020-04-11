@@ -4,7 +4,9 @@
 
 - name: Installing docker
   include: devops.yaml
-
+  
+- name: Install k14s
+  include: k14s.yaml
 
     
 
