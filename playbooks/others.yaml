@@ -1,0 +1,41 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+   - name: Installing gofish  
+     shell: curl -fsSL https://raw.githubusercontent.com/fishworks/gofish/master/scripts/install.sh | bash
+     register: result
+     become: yes   
+   - debug: 
+       var:  result.stdout_lines
+
+   - name: Installing draft
+     shell: gofish install draft
+     register: result
+     become: vagrant   
+   - debug: 
+       var:  result.stdout_lines 
+
+   - name: Install "bower" node.js package globally
+     npm:
+        name: bower
+        global: yes
+
+   - name: Install "grunt-cli" node.js package globally.
+     npm:
+        name: grunt-cli
+        global: yes 
+
+   - name: Install "yeoman scafolding tool" node.js package globally.
+     npm:
+        name: yo
+        global: yes   
+   - name: Install "yeoman scafolding tool" node.js package globally.
+     npm:
+        name: generator-generator
+        global: yes         
+        
+   - name: Install "inquirer" node.js package globally.
+     npm:
+        name: inquirer cmdify chalk-pipe
+        global: yes

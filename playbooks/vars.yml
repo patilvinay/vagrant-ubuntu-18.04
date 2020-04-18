@@ -10,7 +10,8 @@
 
  kube:
    configfile: config 
-   context:  do-{{ do.region }}-{{ do.name }} 
+   #context:  do-{{ do.region }}-{{ do.name }} 
+   context:  kind-kind
 
  ngx:
     app_name: ms-business

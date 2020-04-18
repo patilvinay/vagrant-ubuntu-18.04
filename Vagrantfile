@@ -5,7 +5,7 @@
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
-#disk2 = 'd:\\vm-disks\\disk-2.vdi'
+disk2 = 'd:\\vm-disks\\disk-2.vdi'
 
 
 Vagrant.configure("2") do |config|
@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
     #  unless File.exist?(disk2)
     #    v.customize ['createhd', '--filename', disk2, '--size', 10 * 1024] ## 100G
     #   end
-    #    v.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk2]
+        v.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk2]
    
   end
 
@@ -32,10 +32,12 @@ Vagrant.configure("2") do |config|
   config.trigger.after :up do |trigger|
     trigger.name = "Finished Message"
     trigger.info = "Machine is up!"
-    # trigger.run_remote = {inline: " mkdir -p /home/vagrant/d2;sudo mount /dev/sdb1 d2;
-    # sudo chown  vagrant:vagrant -R /home/vagrant/d2;
-    #  ln -sf /home/vagrant/d2/.zshhistory /home/vagrant/.zsh_history;
-    #  ln -sf /home/vagrant/d2/.kube /home/vagrant/.kube"}
+    trigger.run_remote = {inline: " mkdir -p /home/vagrant/d2;sudo mount /dev/sdb1 d2;
+    sudo chown  vagrant:vagrant -R /home/vagrant/d2;
+     ln -sf /home/vagrant/d2/.zshhistory /home/vagrant/.zsh_history;
+     ln -sf /home/vagrant/d2/.kube /home/vagrant/.kube
+     ln -sf /home/vagrant/d2/.config /home/vagrant/.config
+     "}
   end
 
   config.trigger.before :up do |trigger|
@@ -59,7 +61,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.network "public_network"
 
-    # Run Ansible from the Vagrant VM
+  # Run Ansible from the Vagrant VM
   config.vm.provision "ansible_local" do |ansible_main|
       ansible_main.inventory_path = "./playbooks/hosts.ini"
       ansible_main.playbook = "./playbooks/main.yaml"
