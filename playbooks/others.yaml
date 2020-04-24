@@ -39,3 +39,15 @@
      npm:
         name: inquirer cmdify chalk-pipe
         global: yes
+   - name: Installing yq
+     shell: curl -L --output /user.local/bin yq https://github.com/mikefarah/yq/releases/download/2.4.0/yq_linux_amd64
+     register: result
+     become: yes   
+   - debug: 
+         var:  result.stdout_lines
+
+   - name: Installing packages
+     apt:
+        pkg:
+        - debootstrap
+     become: yes 

@@ -16,4 +16,5 @@
         - curl
         - vim
         - software-properties-common
+        - jq
       become: yes
