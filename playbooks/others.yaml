@@ -44,6 +44,20 @@
         name: inquirer cmdify chalk-pipe
         global: yes
      become: yes   
+   - name: Install "cmdify" node.js package globally.
+     npm:
+        name:  cmdify 
+        global: yes
+     become: yes  
+   - name: Install "chalk-pipe" node.js package globally.
+     npm:
+        name:  chalk-pipe
+        global: yes
+     become: yes  
+
+
+
+
    - name: Installing yq
      shell: curl -L --output /user.local/bin yq https://github.com/mikefarah/yq/releases/download/2.4.0/yq_linux_amd64
      register: result
