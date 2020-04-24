@@ -56,9 +56,16 @@
      become: yes  
 
    - name: Installing yq
-     shell: curl -L --output /user.local/bin yq https://github.com/mikefarah/yq/releases/download/2.4.0/yq_linux_amd64
+     shell: curl -L --output /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/2.4.0/yq_linux_amd64
      register: result
      become: yes   
+
+   - name: Change file ownership, group and permissions
+     file:
+        path: /usr/local/bin/yq 
+        mode: u=xrw,g=xr,o=xr
+     become: yes   
+
    - debug: 
          var:  result.stdout_lines
 
@@ -66,4 +73,4 @@
      apt:
         pkg:
         - debootstrap
-     become: yes 
+     become: yes  
