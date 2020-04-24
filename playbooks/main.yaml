@@ -4,9 +4,13 @@
 
 - name: Installing docker
   include: devops.yaml
+
+- name: Installing other essential
+  include: others.yaml
+
+- name: Installing nodejs
+  include: nodejs-playbook.yaml
   
-- name: Install k14s
-  include: k14s.yaml
 
     
 

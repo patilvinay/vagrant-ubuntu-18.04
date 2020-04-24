@@ -6,6 +6,10 @@
      shell: curl -fsSL https://raw.githubusercontent.com/fishworks/gofish/master/scripts/install.sh | bash
      register: result
      become: yes   
+   - name: gofish Init
+     shell: gofish init
+     register: result
+     become: yes   
    - debug: 
        var:  result.stdout_lines
 
@@ -74,4 +78,5 @@
         pkg:
         - debootstrap
         - cmake
+        - gcc-arm-none-eabi
      become: yes  
