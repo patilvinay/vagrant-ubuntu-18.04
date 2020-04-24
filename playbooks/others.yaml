@@ -73,4 +73,5 @@
      apt:
         pkg:
         - debootstrap
+        - cmake
      become: yes  
