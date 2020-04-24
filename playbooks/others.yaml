@@ -12,7 +12,7 @@
    - name: Installing draft
      shell: gofish install draft
      register: result
-     become: vagrant   
+     become: yes   
    - debug: 
        var:  result.stdout_lines 
 
@@ -20,25 +20,30 @@
      npm:
         name: bower
         global: yes
+     become: yes   
 
    - name: Install "grunt-cli" node.js package globally.
      npm:
         name: grunt-cli
         global: yes 
+     become: yes   
 
    - name: Install "yeoman scafolding tool" node.js package globally.
      npm:
         name: yo
         global: yes   
+     become: yes   
    - name: Install "yeoman scafolding tool" node.js package globally.
      npm:
         name: generator-generator
         global: yes         
+     become: yes   
         
    - name: Install "inquirer" node.js package globally.
      npm:
         name: inquirer cmdify chalk-pipe
         global: yes
+     become: yes   
    - name: Installing yq
      shell: curl -L --output /user.local/bin yq https://github.com/mikefarah/yq/releases/download/2.4.0/yq_linux_amd64
      register: result
