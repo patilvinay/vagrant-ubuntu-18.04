@@ -18,4 +18,3 @@
            "{{ snap_pkg }}"
         state: present  
       become: yes  
-

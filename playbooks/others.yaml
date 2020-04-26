@@ -35,6 +35,3 @@
      register: result
      become: yes   
      when: false
-   - debug: 
-       var:  result.stdout_lines
- 

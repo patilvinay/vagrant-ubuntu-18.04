@@ -16,5 +16,3 @@
       with_items:
          - "{{ config.npm_modules }}"
       become: yes   
-
-  

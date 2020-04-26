@@ -9,10 +9,6 @@ config:
         - role:  andrewrothstein.bazel
         - role:  geerlingguy.nodejs   
         - role:  geerlingguy.docker
-        
-    
-    
-
     apt_pkg:
         - git
         - g++
@@ -27,8 +23,6 @@ config:
         - jq
     snap_pkg:
         - doctl
-
-   
     npm_modules:
         - bower
         - grunt-cli
