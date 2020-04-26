@@ -1,0 +1,41 @@
+config:
+    roles:
+        - role:  zsh
+        - role:  tmux
+        - role:  andrewrothstein.kubectl
+        - role:  andrewrothstein.kubernetes-helm
+        - role:  andrewrothstein.istio
+        - role:  andrewrothstein.kind
+        - role:  andrewrothstein.bazel
+        - role:  geerlingguy.nodejs   
+        - role:  geerlingguy.docker
+        
+    
+    
+
+    apt_pkg:
+        - git
+        - g++
+        - make
+        - curl
+        - vim
+        - software-properties-common
+        - snap
+        - cmake
+        - gcc-arm-none-eabi
+        - debootstrap
+        - jq
+    snap_pkg:
+        - doctl
+
+   
+    npm_modules:
+        - bower
+        - grunt-cli
+        - yo
+        - generator-generator
+        - inquirer
+        - cmdify
+        - chalk-pipe
+        - mocha
+        - chai            

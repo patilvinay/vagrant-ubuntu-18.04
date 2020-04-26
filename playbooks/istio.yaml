@@ -1,14 +1,4 @@
-- hosts: localhost
-  connection: local
-  vars:
-    the_user: "{{ ansible_user_id }}"
-  become: true
-  become_method: sudo
-  roles:
-    - role: andrewrothstein.istio
-  
-
-
+## This playbook installs istio inside kubernetes
 - hosts: localhost
   connection: local
  # gather_facts: no

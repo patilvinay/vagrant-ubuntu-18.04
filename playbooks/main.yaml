@@ -2,14 +2,15 @@
 - name: Playing essential
   include: essential.yaml
 
-- name: Installing docker
-  include: devops.yaml
+- name: Installing by roles
+  include: installroles.yaml
+
+- name: Installing node modules
+  include: installnodemodules.yaml
 
 - name: Installing other essential
   include: others.yaml
 
-- name: Installing nodejs
-  include: nodejs-playbook.yaml
   
 
     

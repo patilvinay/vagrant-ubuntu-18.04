@@ -1,7 +1,0 @@
-- hosts: localhost
-  connection: local
-  vars:
-    the_user: "{{ ansible_user_id }}"
-  become: true
-  roles: 
-    - geerlingguy.nodejs    

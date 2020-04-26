@@ -1,0 +1,21 @@
+- hosts: localhost
+  connection: local
+  vars_files:
+    - .config.yaml
+  become: true
+  vars:
+    the_user: "{{ ansible_user_id }}"
+  tasks:
+    - name: Install required apks
+      apt:
+        pkg:
+           "{{ config.apt_pkg }}"  
+      become: yes  
+
+    - name: Install snap modules
+      snap:
+        name:
+           "{{ snap_pkg }}"
+        state: present  
+      become: yes  
+

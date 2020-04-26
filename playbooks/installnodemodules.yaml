@@ -1,0 +1,20 @@
+- hosts: localhost
+  connection: local
+  vars_files:
+     - .config.yaml
+  vars:
+    the_user: "{{ ansible_user_id }}"
+  become: true
+  roles: 
+    - role:  geerlingguy.nodejs
+  tasks:
+
+    - name: Install required node.js package globally
+      npm:
+        name: "{{ item }}"
+        global: yes
+      with_items:
+         - "{{ config.npm_modules }}"
+      become: yes   
+
+  

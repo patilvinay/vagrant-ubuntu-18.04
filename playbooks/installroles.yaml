@@ -1,0 +1,13 @@
+- hosts: localhost
+  connection: local
+  vars_files:
+    - .config.yaml
+  vars:
+    the_user: "{{ ansible_user_id }}"
+  become: true
+  become_method: sudo
+  tasks:     
+    - name: Run role in loop
+      include_role:
+         name: "{{ item}}"
+      loop:  "{{ config.roles }}"

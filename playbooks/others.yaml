@@ -6,6 +6,7 @@
      shell: curl -fsSL https://raw.githubusercontent.com/fishworks/gofish/master/scripts/install.sh | bash
      register: result
      become: yes   
+
    - name: gofish Init
      shell: gofish init
      register: result
@@ -17,47 +18,6 @@
      shell: gofish install draft
      register: result
      become: yes   
-   - debug: 
-       var:  result.stdout_lines 
-
-   - name: Install "bower" node.js package globally
-     npm:
-        name: bower
-        global: yes
-     become: yes   
-
-   - name: Install "grunt-cli" node.js package globally.
-     npm:
-        name: grunt-cli
-        global: yes 
-     become: yes   
-
-   - name: Install "yeoman scafolding tool" node.js package globally.
-     npm:
-        name: yo
-        global: yes   
-     become: yes   
-   - name: Install "yeoman scafolding tool" node.js package globally.
-     npm:
-        name: generator-generator
-        global: yes         
-     become: yes   
-        
-   - name: Install "inquirer" node.js package globally.
-     npm:
-        name: inquirer 
-        global: yes
-     become: yes   
-   - name: Install "cmdify" node.js package globally.
-     npm:
-        name:  cmdify 
-        global: yes
-     become: yes  
-   - name: Install "chalk-pipe" node.js package globally.
-     npm:
-        name:  chalk-pipe
-        global: yes
-     become: yes  
 
    - name: Installing yq
      shell: curl -L --output /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/2.4.0/yq_linux_amd64
@@ -68,15 +28,13 @@
      file:
         path: /usr/local/bin/yq 
         mode: u=xrw,g=xr,o=xr
+     become: yes 
+
+   - name: Installing k14s  
+     shell: curl -L https://k14s.io/install.sh | bash
+     register: result
      become: yes   
-
+     when: false
    - debug: 
-         var:  result.stdout_lines
-
-   - name: Installing packages
-     apt:
-        pkg:
-        - debootstrap
-        - cmake
-        - gcc-arm-none-eabi
-     become: yes  
+       var:  result.stdout_lines
+ 
