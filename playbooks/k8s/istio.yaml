@@ -15,4 +15,3 @@
         - path: /usr/local/istio/bin
       become: vagrant
 
- 

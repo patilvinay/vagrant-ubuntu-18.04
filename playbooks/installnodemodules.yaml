@@ -1,11 +1,11 @@
 - hosts: localhost
   connection: local
   vars_files:
-     - .config.yaml
+     - config.yaml
   vars:
     the_user: "{{ ansible_user_id }}"
   become: true
-  roles: 
+  roles:
     - role:  geerlingguy.nodejs
   tasks:
 
@@ -15,4 +15,4 @@
         global: yes
       with_items:
          - "{{ config.npm_modules }}"
-      become: yes   
+      become: yes

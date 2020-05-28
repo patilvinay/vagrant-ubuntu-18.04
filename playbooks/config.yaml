@@ -7,7 +7,7 @@ config:
         - role:  andrewrothstein.istio
         - role:  andrewrothstein.kind
         - role:  andrewrothstein.bazel
-        - role:  geerlingguy.nodejs   
+        - role:  geerlingguy.nodejs
         - role:  geerlingguy.docker
     apt_pkg:
         - git
@@ -32,4 +32,4 @@ config:
         - cmdify
         - chalk-pipe
         - mocha
-        - chai            
+        - chai

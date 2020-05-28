@@ -9,8 +9,8 @@
 
 
  kube:
-   configfile: config 
-   #context:  do-{{ do.region }}-{{ do.name }} 
+   configfile: config
+   #context:  do-{{ do.region }}-{{ do.name }}
    context:  kind-kind
 
  ngx:
@@ -20,8 +20,8 @@
     context: "{{ kube.context }}"
     configfile: "{{ kube.configfile }}"
     chartclone: false
-    domain: "api.ngxconnect.in" 
+    domain: "api.ngxconnect.in"
 
  cert_manager:
    version: v0.14.1
-    
+

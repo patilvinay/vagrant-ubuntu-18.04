@@ -1,12 +1,12 @@
 
 - name: Playing essential
-  include: essential.yaml
+  import_playbook: essentials.yaml
 
 - name: Installing by roles
-  include: installroles.yaml
+  import_playbook: installroles.yaml
 
 - name: Installing node modules
-  include: installnodemodules.yaml
+  import_playbook: installnodemodules.yaml
 
 - name: Installing other essential
-  include: others.yaml
+  import_playbook: others.yaml

@@ -1,34 +1,34 @@
 - hosts: localhost
   connection: local
   gather_facts: no
-  vars_files: 
-    - vars.yml  
+  vars_files:
+    - vars.yml
   tasks:
 
-    - name: Creating Cert manager crds  
+    - name: Creating Cert manager crds
       shell:  "kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/{{ cert_manager.version }}/cert-manager.crds.yaml"
       register: result
-    - debug: 
+    - debug:
         var:  result.stdout_lines
 
 
-    - name: Adding jetstack repo  
+    - name: Adding jetstack repo
       shell:  helm repo add jetstack https://charts.jetstack.io;helm repo update
       register: result
-    - debug: 
+    - debug:
         var:  result.stdout_lines
 
     - name: Creating Namespace cert-manager
       shell:  kubectl create ns cert-manager
       register: result
 
-      #become: yes  
-    - name: installing certmanager 
+      #become: yes
+    - name: installing certmanager
       shell:  "helm install cert-manager jetstack/cert-manager --namespace cert-manager --version {{ cert_manager.version }}"
       register: result
-    - debug: 
+    - debug:
         var:  result.stdout_lines
-      #become: yes   
+      #become: yes
 
     # - name: Install helm chart
     #   helm:
@@ -42,4 +42,3 @@
     #     state: present
     #     name: cert-manager
     #     namespace: cert-manager
-        

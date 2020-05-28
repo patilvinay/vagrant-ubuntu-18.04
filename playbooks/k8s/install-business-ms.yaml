@@ -1,7 +1,7 @@
 - hosts: localhost
   connection: local
   gather_facts: no
-  vars_files: 
+  vars_files:
     - vars.yml
   tasks:
     - name: Deploy site files from Github repository
@@ -17,19 +17,19 @@
 - hosts: localhost
   connection: local
   gather_facts: no
-  vars_files: 
+  vars_files:
     - vars.yml
   tasks:
    - debug:
-      msg: "{{ ngx.configfile }}" 
+      msg: "{{ ngx.configfile }}"
    - debug:
-      msg: "{{ ngx.app_name }}" 
+      msg: "{{ ngx.app_name }}"
 
 
 - hosts: localhost
   connection: local
   gather_facts: no
-  vars_files: 
+  vars_files:
     - vars.yml
   roles:
 ## This role created install the helm chart in the k8s
@@ -46,6 +46,6 @@
         environment:
           KUBECONFIG: "{{ lookup('env','HOME') }}/.kube/{{ ngx.configfile }}"
       become: vagrant
-  
+
 
 

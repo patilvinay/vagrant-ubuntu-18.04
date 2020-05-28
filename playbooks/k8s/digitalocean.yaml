@@ -4,10 +4,10 @@
       - vars.yml
   gather_facts: no
   tasks:
-   - name: Creating Digital Ocean Cluster  
+   - name: Creating Digital Ocean Cluster
      shell: doctl k8s cluster create  --size {{ do.size }} --count {{ do.count}} --region {{ do.region }} --tag {{ do.tag }} --update-kubeconfig {{ do.name }}  --version {{ do.version }}
      register: result
-     #become: yes   
-   - debug: 
+     #become: yes
+   - debug:
        var:  result.stdout_lines
 

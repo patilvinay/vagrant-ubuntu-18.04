@@ -2,36 +2,36 @@
   connection: local
   gather_facts: no
   tasks:
-   - name: Installing gofish  
+   - name: Installing gofish
      shell: curl -fsSL https://raw.githubusercontent.com/fishworks/gofish/master/scripts/install.sh | bash
      register: result
-     become: yes   
+     become: yes
 
    - name: gofish Init
      shell: gofish init
      register: result
-     become: yes   
-   - debug: 
+     become: yes
+   - debug:
        var:  result.stdout_lines
 
    - name: Installing draft
      shell: gofish install draft
      register: result
-     become: yes   
+     become: yes
 
    - name: Installing yq
      shell: curl -L --output /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/2.4.0/yq_linux_amd64
      register: result
-     become: yes   
+     become: yes
 
    - name: Change file ownership, group and permissions
      file:
-        path: /usr/local/bin/yq 
+        path: /usr/local/bin/yq
         mode: u=xrw,g=xr,o=xr
-     become: yes 
+     become: yes
 
-   - name: Installing k14s  
+   - name: Installing k14s
      shell: curl -L https://k14s.io/install.sh | bash
      register: result
-     become: yes   
+     become: yes
      when: false
