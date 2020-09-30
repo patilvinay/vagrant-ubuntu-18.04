@@ -8,7 +8,7 @@ config:
         - role:  andrewrothstein.kind
         - role:  andrewrothstein.bazel
         - role:  geerlingguy.nodejs
-        - role:  geerlingguy.docker
+      #  - role:  geerlingguy.docker
     apt_pkg:
         - git
         - g++

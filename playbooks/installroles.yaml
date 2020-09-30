@@ -4,7 +4,7 @@
     - config.yaml
   vars:
     the_user: "{{ ansible_user_id }}"
-  become: true
+  #become: true
   become_method: sudo
   tasks:
     - name: Run role in loop

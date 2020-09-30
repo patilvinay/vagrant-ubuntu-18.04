@@ -13,12 +13,12 @@ Vagrant.configure("2") do |config|
   #config.vm.provision "file", source: "~/.ssh/", destination: "~/.ssh-host"
   config.vm.provider "virtualbox" do |v|
     #v.name = "vagrant_ubuntu18_vb"
-    v.memory = 2048*2
+    v.memory = 4048*2
     v.cpus = 4
     #  unless File.exist?(disk2)
     #    v.customize ['createhd', '--filename', disk2, '--size', 10 * 1024] ## 100G
     #   end
-     #   v.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk2]
+        v.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', disk2]
   end
   config.trigger.after :up do |trigger|
     trigger.name = "Finished Message"

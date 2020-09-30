@@ -7,17 +7,17 @@
      register: result
      become: yes
 
-   - name: gofish Init
-     shell: gofish init
-     register: result
-     become: yes
-   - debug:
-       var:  result.stdout_lines
+  #  - name: gofish Init
+  #    shell: gofish init
+  #    register: result
+  #    become: yes
+  #  - debug:
+  #      var:  result.stdout_lines
 
-   - name: Installing draft
-     shell: gofish install draft
-     register: result
-     become: yes
+  #  - name: Installing draft
+  #    shell: gofish install draft
+  #    register: result
+  #    become: yes
 
    - name: Installing yq
      shell: curl -L --output /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/2.4.0/yq_linux_amd64
